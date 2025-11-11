@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Sitio Web del Cliente</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; padding: 20px; background-color: #f0f0f0; }
+        h1 { color: #333; }
+        p { color: #555; }
+        .content { max-width: 800px; margin: auto; padding: 20px; background: white; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <h1>Pagina Web de Cliente.</h1>
+        <p>Este es un sitio web de ejemplo donde hemos instalado el widget de chat de SCI.</p>
+        <p>El widget de chat debería aparecer en la esquina inferior derecha. Todo su código se carga desde un servidor diferente para demostrar cómo funciona un SaaS.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- INICIO: Script de Incrustación del Chat de SCI          -->
+    <!-- ======================================================= -->
+    <!-- Este es el único código que tu cliente necesita pegar en su sitio web. -->
+    <script type="text/javascript">
+        (function(){
+            var s1 = document.createElement("script");
+            s1.async = true;
+            // Apunta al "loader" en tu servidor principal (sci.test)
+            // Le pasamos un ID de cuenta para identificar a este cliente.
+            s1.src = 'http://chat.test/public/client/loader.php?account_id=alcaldia_xyz'; 
+            s1.charset = 'UTF-8';
+            var s0 = document.getElementsByTagName("script")[0];
+            s0.parentNode.insertBefore(s1,s0);
+        })();
+    </script>
+    <!-- ======================================================= -->
+    <!-- FIN: Script de Incrustación del Chat de SCI             -->
+    <!-- ======================================================= -->
+
+</body>
+</html>
