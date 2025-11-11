@@ -1,0 +1,400 @@
+/* ================================================================ */
+/* CHAT_STYLE.CSS - Estilos Específicos para el Widget de Chat      */
+/* Todos los selectores están prefijados con .chat-widget-container */
+/* para minimizar conflictos con los estilos globales del sitio.    */
+/* ================================================================ */
+
+/* Estilo base para el widget. 
+   Los estilos de posicionamiento (fixed, bottom, right, z-index, width, display:none)
+   se manejan en el HTML inline del index.html principal para asegurar
+   que el widget esté oculto y posicionado correctamente desde el inicio.
+   Aquí definimos el aspecto interno.
+*/
+.chat-widget-container {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    /* Si el width se define en el HTML inline (ej: width: 350px), 
+       esta altura (height) debe ser definida aquí o también en el inline. */
+    height: 450px; /* <--- AJUSTA LA ALTURA TOTAL DESEADA DEL WIDGET (Ejemplo: 450px) */
+    max-height: 80vh; /* Para pantallas pequeñas, no más del 80% del viewport */
+    width: 350px; /* <--- ASEGURA UN ANCHO FIJO SI EL HTML NO LO HACE */
+    max-width: 100vw !important; /* Refuerzo para evitar scroll horizontal de la página principal */
+
+    /* Esto es para asegurar que, si el ancho del widget es 350px y el 
+       espacio disponible es menor (por ejemplo, en un móvil), 
+       el right: 20px se respete correctamente. */
+    right: 20px !important; 
+    
+    /* Para navegadores más antiguos o layouts complejos, esto también ayuda: */
+    box-sizing: border-box !important;
+    
+    background-color: #ffffff;
+    /* border y box-shadow ya están en el inline del index.html */
+    display: flex; /* Controlado por JS para mostrar/ocultar */
+    flex-direction: column;
+    overflow: hidden; /* Esto es correcto: el contenedor principal no debe tener scroll */
+    font-size: 14px; /* Un tamaño base para el chat, puedes ajustar */
+    line-height: 1.5; /* Espaciado de línea base */
+}
+
+/* NO aplicar estilos globales al body, p, button desde aquí */
+
+.chat-widget-container .chat-header {
+    background-color: #ffffff;
+    padding: 12px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    /* El header tiene un tamaño fijo de contenido */
+    flex-shrink: 0; 
+}
+
+.chat-widget-container .chat-title {
+    font-size: 1.1em; 
+    font-weight: bold;
+    color: #333;
+    margin: 0; 
+}
+
+.chat-widget-container .chat-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.6em;
+    color: #757575;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+.chat-widget-container .chat-close-btn:hover {
+    color: #333;
+}
+
+.chat-widget-container .chat-body {
+    padding: 15px;
+    flex-grow: 1; /* Ocupa el espacio vertical restante */
+    display: flex; 
+    flex-direction: column;
+    /* FIX CRÍTICO: Elimina el scroll horizontal en el body del chat */
+    overflow-x: hidden; 
+    /* El scroll vertical debe manejarse en las vistas internas (userInfoFormView, chatInterface) */
+    overflow-y: hidden; /* Esto pasa el control del scroll a las vistas internas */
+}
+
+.chat-widget-container .chat-intro {
+    font-size: 0.9em;
+    color: #555555;
+    margin-top: 0;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    /* El intro no debería tener flex-shrink: 0 para no obligar el scroll si se achica */
+    flex-shrink: 0;
+}
+
+.chat-widget-container .form-group {
+    margin-bottom: 15px;
+    flex-shrink: 0; /* Para que todos los campos del formulario se mantengan visibles */
+}
+
+.chat-widget-container .form-group label {
+    display: block;
+    font-size: 0.85em;
+    color: #555555;
+    margin-bottom: 5px;
+}
+
+.chat-widget-container .form-group input[type="text"],
+.chat-widget-container .form-group input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* CORRECTO */
+    font-size: 0.95em;
+    font-family: inherit; 
+}
+
+.chat-widget-container .form-group input[type="text"]:focus,
+.chat-widget-container .form-group input[type="email"]:focus {
+    outline: none;
+    border-color: #007bff; 
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.chat-widget-container .chat-privacy-notice {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-top: 5px; 
+    margin-bottom: 20px;
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    font-size: 0.8em;
+    color: #666666;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    line-height: 1.3;
+}
+
+.chat-widget-container .chat-privacy-notice p {
+    margin: 0; 
+    flex-grow: 1; 
+    color: #666666; 
+}
+
+.chat-widget-container .chat-privacy-notice a {
+    color: #007bff; 
+    text-decoration: none;
+}
+
+.chat-widget-container .chat-privacy-notice a:hover {
+    text-decoration: underline;
+}
+
+.chat-widget-container .privacy-close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    color: #999;
+    cursor: pointer;
+    padding: 0 0 0 10px; 
+    line-height: 1; 
+}
+.chat-widget-container .privacy-close-btn:hover {
+    color: #555;
+}
+
+.chat-widget-container .chat-actions {
+    display: flex;
+    border-top: 1px solid #e0e0e0; 
+    margin-top: auto; 
+    
+    /* FIX CRÍTICO: Anula el padding de 15px del .chat-body para que los botones sean de borde a borde 
+       Esto asume que el .chat-actions sigue DENTRO del .chat-body en tu HTML. */
+    margin-left: -15px;
+    margin-right: -15px; 
+    width: calc(100% + 30px); /* 100% del contenido más 15px de padding de cada lado */
+    flex-shrink: 0; /* Evita que los botones se achiquen */
+}
+
+/* Estilo para los botones dentro de .chat-actions */
+.chat-widget-container .chat-actions .btn { 
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: none; 
+    font-size: 1em; 
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: transparent; 
+    color: inherit; 
+    text-align: center;
+    line-height: normal; 
+    font-family: inherit; 
+}
+
+.chat-widget-container .chat-actions .btn-regresar {
+    background-color: #6c757d; 
+    color: white;
+    border-bottom-left-radius: 7px; 
+    border-top-right-radius: 0; 
+    border-bottom-right-radius: 0;
+}
+.chat-widget-container .chat-actions .btn-regresar:hover {
+    background-color: #5a6268;
+}
+
+.chat-widget-container .chat-actions .btn-enviar {
+    background-color: #e9ecef; 
+    color: #6c757d; 
+    border-bottom-right-radius: 7px; 
+    border-top-left-radius: 0; 
+    border-bottom-left-radius: 0;
+}
+.chat-widget-container .chat-actions .btn-enviar:hover {
+    background-color: #d3d9df;
+}
+.chat-widget-container .chat-actions .btn-enviar:disabled {
+    background-color: #f8f9fa;
+    color: #adb5bd;
+    cursor: not-allowed;
+}
+
+/* Estilos para la Interfaz de Chat Real */
+.chat-widget-container #chatInterface {
+    display: flex; 
+    flex-direction: column;
+    height: 100%; /* Ahora usa 100% del espacio restante del chat-body */
+    width: 100%; 
+    flex-grow: 1; /* Para ocupar el espacio disponible en .chat-body */
+}
+
+.chat-widget-container .chat-messages {
+    flex-grow: 1;
+    overflow-y: auto; /* CORRECTO: Esto permite el scroll de los mensajes */
+    padding: 10px;
+    border: 1px solid #eee;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column; 
+}
+
+.chat-widget-container .chat-message {
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    border-radius: 15px;
+    max-width: 75%; 
+    word-wrap: break-word;
+    line-height: 1.4; 
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1); 
+}
+
+.chat-widget-container .chat-message.user {
+    background-color: #007bff; 
+    color: white;
+    align-self: flex-end; 
+    border-bottom-right-radius: 5px;
+}
+
+.chat-widget-container .chat-message.agent {
+    background-color: #e9ecef; 
+    color: #333;
+    align-self: flex-start; 
+    border-bottom-left-radius: 5px;
+}
+
+.chat-widget-container .chat-message strong { 
+    display: block;
+    font-size: 0.8em;
+    margin-bottom: 3px;
+    color: #777; 
+}
+.chat-widget-container .chat-message.user strong {
+    color: #d1e7ff;
+}
+.chat-widget-container .chat-message.agent strong {
+    color: #555; 
+}
+
+.chat-widget-container .chat-system-message {
+    font-style: italic;
+    color: #888;
+    text-align: center;
+    font-size: 0.9em;
+    margin: 10px 0;
+    padding: 5px; 
+}
+
+.chat-widget-container .chat-input-area {
+    display: flex;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+    margin-top: auto; 
+    flex-shrink: 0; /* No se achica */
+}
+
+.chat-widget-container #chatMessageInput {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-family: inherit; 
+    font-size: 0.95em;
+}
+
+.chat-widget-container .btn-enviar-mensaje { 
+    background-color: #28a745; 
+    color: white;
+    padding: 10px 15px; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1em; 
+    font-weight: 500; 
+    line-height: normal;
+    flex-shrink: 0;
+}
+.chat-widget-container .btn-enviar-mensaje:hover {
+    background-color: #218838;
+}
+
+
+/* ... (Estilos existentes de selección de departamento) ... */
+
+/* Estilos para la Vista de Selección de Departamento */
+.chat-widget-container #departmentSelectionView {
+    display: block; 
+    padding-top: 10px; 
+}
+
+.chat-widget-container #departmentListContainer button.department-button {
+    display: block;
+    width: 90%;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    background-color: var(--secondary-bg, #f6f7f9); 
+    border: 1px solid var(--border-color, #dce0e6);
+    color: var(--primary-text, #1d2129);
+    text-align: left;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95em;
+    transition: background-color 0.2s, border-color 0.2s;
+    position: relative; 
+}
+
+.chat-widget-container #departmentListContainer button.department-button:hover {
+    background-color: var(--hover-bg, #e7f3ff);
+    border-color: var(--accent-color, #007bff);
+}
+
+/* Icono de flecha/externo (puedes usar Font Awesome o un SVG si prefieres) */
+.chat-widget-container #departmentListContainer button.department-button::after {
+    content: '→'; 
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-color, #007bff);
+    font-size: 1.1em;
+}
+
+.chat-widget-container .chat-privacy-notice-small {
+    font-size: 0.75em;
+    color: #777;
+    margin-top: 15px;
+    text-align: center;
+    flex-shrink: 0;
+}
+.chat-widget-container .chat-privacy-notice-small a {
+    color: var(--accent-color, #007bff);
+    text-decoration: none;
+}
+.chat-widget-container .chat-privacy-notice-small a:hover {
+    text-decoration: underline;
+}
+
+/* Asegurar que solo una vista principal esté activa */
+.chat-widget-container #departmentSelectionView,
+.chat-widget-container #userInfoFormView,
+.chat-widget-container #chatInterface {
+    display: none; /* Controlado por JS */
+}
+
+/* No es necesario si usamos JS para display:none en las no activas */
+
+.chat-widget-container #departmentSelectionView,
+.chat-widget-container #userInfoFormView,
+.chat-widget-container #chatInterface {
+    width: 100%;
+    flex-grow: 1; /* Para ocupar el espacio vertical del chat-body */
+    display: flex; /* Ya lo pone el JS, pero es bueno tenerlo en CSS */
+    flex-direction: column; /* Para apilar elementos internos verticalmente */
+    
+    /* FIX CRÍTICO: Permite el scroll vertical en la VISTA del formulario/chat */
+    overflow-y: auto; 
+    /* FIX CRÍTICO: Oculta el scroll horizontal que puede causar esta vista */
+    overflow-x: hidden; 
+}
